@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.image.BufferStrategy;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class App extends Canvas implements Runnable {
     private Random rand = new Random();
@@ -88,10 +89,27 @@ public class App extends Canvas implements Runnable {
     }
 
     public void begin() {
-        int[] numbers = new int[10];
-        for(int i = 0; i != 10 ; i++) {
-            numbers[i] = rand.nextInt(50) + 1;
+        handler.addObject(new BACKGROUND(0, 0, 0, ID.BACKGROUND));
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        numbers.add(0);
+        for(int i = 0; i != 9; i++) {
+            numbers.add(rand.nextInt(50) + 1);
         }
-        handler.addObject(new NUMBER(0, 0, ID.NUMBER));
+        String[] Locations = new String[numbers.size()];
+        handler.addObject(new NUMBER(250, 0, 0, ID.NUMBER));
+        Locations[0] = "(250,0) 0";
+        for(int i = 0 ; i < numbers.size(); i++) {
+            if(!numbers.get(i).equals(Locations[i])) {
+                
+            }
+        }
+    }
+
+    public int stringToNumber(String str){
+        int x = -1;
+        for(x = 0; !(x + "").equals(str); x++) {
+
+        }
+        return x;
     }
 }

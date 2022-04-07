@@ -2,12 +2,13 @@ import java.awt.Graphics;
 
 public abstract class GameObject {
 
-    protected int x1, y1, x2, y2;
+    protected int x1, y1, x2, y2, number;
     protected ID id;
 
-    public GameObject(int x1, int y1, ID id) {
+    public GameObject(int x1, int y1, int number, ID id) {
         this.x1 = x1;
         this.y1 = y1;
+        this.number = number;
         this.id = id;
     }
     public GameObject(int x1, int y1, int x2, int y2, ID id) {
@@ -21,7 +22,13 @@ public abstract class GameObject {
     public abstract void tick();
 
     public abstract void render(Graphics g);
+    public int getNumber() {
+        return number;
+    }
 
+    public void setNumber(int number) {
+        this.number = number;
+    }
     public void setX1(int x) {
         this.x1 = x;
     }

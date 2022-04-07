@@ -5,10 +5,10 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-public class LINE extends GameObject{
+public class BACKGROUND extends GameObject{
     
-    public LINE(int x1, int y1, int x2, int y2, ID id){
-        super(x1, y1, x2, y2, id);
+    public BACKGROUND(int x, int y, int number, ID id){
+        super(x, y, number, id);
     }
 
     public void tick(){
@@ -16,7 +16,8 @@ public class LINE extends GameObject{
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.black);
-        g.drawLine(super.getX1(), super.getY1(), super.getX2(), super.getY2());
+        g.setColor(Color.white);
+        g.drawRect(0, 0, 500, 500);
+        g.fillRect(0, 0, 500, 500);
     }
 }
