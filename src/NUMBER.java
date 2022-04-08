@@ -18,7 +18,7 @@ public class NUMBER extends GameObject{
     public void render(Graphics g) {
         try{
             BufferedImage img = ImageIO.read(new File("Images/" + super.getNumber() + ".png"));
-            g.drawImage(img, 0, 0, 10, 10, Color.white, null);
+            g.drawImage(img, super.getX1(), super.getY1(), 10, 10, Color.white, null);
         } catch (IOException E) {
             System.out.println(E.getMessage());
         }

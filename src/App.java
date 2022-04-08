@@ -90,26 +90,107 @@ public class App extends Canvas implements Runnable {
 
     public void begin() {
         handler.addObject(new BACKGROUND(0, 0, 0, ID.BACKGROUND));
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
-        numbers.add(0);
-        for(int i = 0; i != 9; i++) {
-            numbers.add(rand.nextInt(50) + 1);
-        }
-        String[] Locations = new String[numbers.size()];
-        handler.addObject(new NUMBER(250, 0, 0, ID.NUMBER));
-        Locations[0] = "(250,0) 0";
-        for(int i = 0 ; i < numbers.size(); i++) {
-            if(!numbers.get(i).equals(Locations[i])) {
-                
+        handler.addObject(new NUMBER(250, 0, 1, ID.NUMBER));
+        handler.addObject(new NUMBER(260, 0, 0, ID.NUMBER));
+        int[] array = createRandomIntegerArray(10, 50);
+        // Format
+        // 0 left 9
+        String[] displayedNumbers = new String[array.length];
+        displayedNumbers[0] = "10";
+        array[0] = 10;
+        for(int i = 0; i != array.length; i++) {
+            boolean numDisplayed = false;
+            for(int a = 0; a != displayedNumbers.length; a++) {
+                if(array[i] == strToNum(displayedNumbers[a]))
+                    numDisplayed = true;
+            }
+            if(!numDisplayed) {
+                System.out.println(findNextSpot(array[i], array[0], displayedNumbers));
             }
         }
     }
 
-    public int stringToNumber(String str){
-        int x = -1;
-        for(x = 0; !(x + "").equals(str); x++) {
-
+    public int[] createRandomIntegerArray(int length, int upperLimit) {
+        Random rand = new Random();
+        int[] array = new int[length];
+        for(int i = 0; i != length; i++) {
+            array[i] = rand.nextInt(upperLimit);
         }
-        return x;
+        return array;
+    }
+
+    public String findNextSpot(int num, int currentNum, String[] arr){
+        for(int i = 0; i != arr.length; i++) {
+            if(arr[i] != null && currentNum == findNum(1, arr[i])) {
+                if(num > currentNum) {
+                    String info = num + " right ";
+                    boolean moved = false;
+                    for(int a = 0; a != arr.length; a++) {
+                        if(arr[a] != null && findDir(arr[a]).equals("right") && findNum(2, arr[a]) == currentNum) {
+                            moved = true;
+                            return findNextSpot(num, currentNum, arr);
+                        }
+                    }
+                    if(!moved) {
+                        info += currentNum;
+                        return info;
+                    }
+                }
+                if(num < currentNum) {
+                    String info = num + " left ";
+                    boolean moved = false;
+                    for(int a = 0; a != arr.length; a++) {
+                        if(arr[a] != null && findDir(arr[a]).equals("left") && findNum(2, arr[a]) == currentNum) {
+                            moved = true;
+                            return findNextSpot(num, currentNum, arr);
+                        }
+                    }
+                    if(!moved) {
+                        info += currentNum;
+                        return info;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public int strToNum(String str) {
+        for(int i = 0 ; i != 100000; i++) {
+            if((i + "").equals(str))
+                return i;
+        }
+        return -1;
+    }
+
+    public String findDir(String str) {
+        for(int i = 0; i < str.length(); i++) {
+            if(str.substring(i).equals("l"))
+                return "left";
+            else if(str.substring(i).equals("r"))
+                return "right";
+        }
+        return "none";
+    }
+
+    public int findNum(int firstOrSecond, String str) {
+        String num = "-1";
+        if(firstOrSecond == 1) {
+            for(int i = 0; i < str.length() && str.substring(i).compareTo(" ") != 0; i++) {
+                num = "";
+                num += strToNum(str.substring(i));
+            }
+        } else if (firstOrSecond == 2) {
+            int i = 0;
+            for(i = 0; i < str.length() && !str.substring(i).equals("t"); i++) {
+
+            }
+            i++;
+            for(i = i; i < str.length(); i++) {
+                num = "";
+                num += strToNum(str.substring(i));
+            }
+        }
+        return strToNum(num);
     }
 }
