@@ -17,7 +17,7 @@ public class BACKGROUND extends GameObject{
 
     public void render(Graphics g) {
         g.setColor(Color.white);
-        g.drawRect(0, 0, 500, 500);
-        g.fillRect(0, 0, 500, 500);
+        g.drawRect(0, 0, 1000, 500);
+        g.fillRect(0, 0, 1000, 500);
     }
 }
